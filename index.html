@@ -14,6 +14,7 @@ body {
     overflow: hidden;
 }
 
+/* Stars */
 .stars {
     width: 2px;
     height: 2px;
@@ -49,7 +50,6 @@ body {
 
 button {
     padding: 12px 20px;
-    font-size: 16px;
     border-radius: 8px;
     border: none;
     cursor: pointer;
@@ -57,6 +57,7 @@ button {
     font-weight: bold;
 }
 
+/* Hidden image page */
 #jpgPage {
     display: none;
     position: fixed;
@@ -81,8 +82,10 @@ button {
 
 <body>
 
-<audio id="bgMusic" src="music.mp3" loop></audio>
+<!-- Music -->
+<audio id="bgMusic" src="music.mp3"></audio>
 
+<!-- Stars -->
 <script>
 for (let i = 0; i < 200; i++) {
     const s = document.createElement("div");
@@ -93,6 +96,7 @@ for (let i = 0; i < 200; i++) {
 }
 </script>
 
+<!-- Main Page -->
 <div id="mainContent">
     <div class="card">
         <h2>🎉 Happy Birthday Mumma 🎉</h2>
@@ -102,6 +106,7 @@ for (let i = 0; i < 200; i++) {
     </div>
 </div>
 
+<!-- Image Page -->
 <div id="jpgPage">
     <img src="cute.jpg" alt="For Mum">
     <p>Love you always mumma 💗</p>
@@ -109,15 +114,17 @@ for (let i = 0; i < 200; i++) {
 </div>
 
 <script>
+window.onload = () => {
+
 const text = `Thank you mumma for everything you do.
-Even when you’re stressed,
+No matter how stressed you are,
 you always keep us smiling.
 
 For so many years you handled everything alone.
 Sorry for any trouble I caused unknowingly.
 
 Exams ki wajah se zyada kuch nahi kar payi,
-but I hope this small gift makes you happy.
+but I hope this little gift makes you happy.
 
 Happy Birthday Mumma 💗`;
 
@@ -129,8 +136,9 @@ const startBtn = document.getElementById("startBtn");
 const jpgBtn = document.getElementById("jpgBtn");
 const audio = document.getElementById("bgMusic");
 
-/* IMPORTANT: CLEAR MESSAGE ON LOAD */
+/* HARD RESET ON LOAD */
 msgBox.innerHTML = "";
+jpgBtn.style.display = "none";
 
 function typeWriter() {
     if (index < text.length) {
@@ -143,23 +151,24 @@ function typeWriter() {
     }
 }
 
-startBtn.onclick = () => {
+startBtn.addEventListener("click", () => {
     msgBox.innerHTML = "";
     index = 0;
     startBtn.disabled = true;
 
-    audio.volume = 0.6;
+    audio.currentTime = 0;
+    audio.volume = 0.7;
     audio.play().catch(() => {});
 
     typeWriter();
-};
+});
 
-jpgBtn.onclick = () => {
+jpgBtn.addEventListener("click", () => {
     document.getElementById("mainContent").style.display = "none";
     document.getElementById("jpgPage").style.display = "flex";
-};
+});
 
-function goBack() {
+window.goBack = () => {
     document.getElementById("jpgPage").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
 
@@ -170,7 +179,9 @@ function goBack() {
 
     audio.pause();
     audio.currentTime = 0;
-}
+};
+
+};
 </script>
 
 </body>
