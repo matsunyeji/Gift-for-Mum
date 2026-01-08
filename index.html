@@ -14,7 +14,6 @@ body {
     overflow: hidden;
 }
 
-/* STARS */
 .stars {
     width: 2px;
     height: 2px;
@@ -58,7 +57,6 @@ button {
     font-weight: bold;
 }
 
-/* IMAGE PAGE */
 #jpgPage {
     display: none;
     position: fixed;
@@ -83,10 +81,8 @@ button {
 
 <body>
 
-<!-- MUSIC -->
 <audio id="bgMusic" src="music.mp3" loop></audio>
 
-<!-- STARS -->
 <script>
 for (let i = 0; i < 200; i++) {
     const s = document.createElement("div");
@@ -97,7 +93,6 @@ for (let i = 0; i < 200; i++) {
 }
 </script>
 
-<!-- MAIN PAGE -->
 <div id="mainContent">
     <div class="card">
         <h2>🎉 Happy Birthday Mumma 🎉</h2>
@@ -107,7 +102,6 @@ for (let i = 0; i < 200; i++) {
     </div>
 </div>
 
-<!-- IMAGE PAGE -->
 <div id="jpgPage">
     <img src="cute.jpg" alt="For Mum">
     <p>Love you always mumma 💗</p>
@@ -115,19 +109,19 @@ for (let i = 0; i < 200; i++) {
 </div>
 
 <script>
-const messageText = `Thank you mumma for everything you do.
-No matter how stressed you are,
-you always keep us happy.
+const text = `Thank you mumma for everything you do.
+Even when you’re stressed,
+you always keep us smiling.
 
 For so many years you handled everything alone.
 Sorry for any trouble I caused unknowingly.
 
 Exams ki wajah se zyada kuch nahi kar payi,
-but I hope this little gift makes you smile.
+but I hope this small gift makes you happy.
 
 Happy Birthday Mumma 💗`;
 
-let i = 0;
+let index = 0;
 const speed = 30;
 
 const msgBox = document.getElementById("message");
@@ -135,10 +129,13 @@ const startBtn = document.getElementById("startBtn");
 const jpgBtn = document.getElementById("jpgBtn");
 const audio = document.getElementById("bgMusic");
 
+/* IMPORTANT: CLEAR MESSAGE ON LOAD */
+msgBox.innerHTML = "";
+
 function typeWriter() {
-    if (i < messageText.length) {
-        msgBox.innerHTML += messageText.charAt(i);
-        i++;
+    if (index < text.length) {
+        msgBox.innerHTML += text.charAt(index);
+        index++;
         msgBox.scrollTop = msgBox.scrollHeight;
         setTimeout(typeWriter, speed);
     } else {
@@ -148,7 +145,7 @@ function typeWriter() {
 
 startBtn.onclick = () => {
     msgBox.innerHTML = "";
-    i = 0;
+    index = 0;
     startBtn.disabled = true;
 
     audio.volume = 0.6;
@@ -167,7 +164,7 @@ function goBack() {
     document.getElementById("mainContent").style.display = "block";
 
     msgBox.innerHTML = "";
-    i = 0;
+    index = 0;
     startBtn.disabled = false;
     jpgBtn.style.display = "none";
 
