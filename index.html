@@ -62,7 +62,7 @@ button {
 }
 
 /* GIF POPUP */
-#gifPage {
+#jpgPage {
     display: none;
     position: fixed;
     top: 0;
@@ -79,13 +79,13 @@ button {
     padding: 20px;
 }
 
-#gifPage img {
+#jpgPage img {
     width: 300px;
     max-width: 90%;
     margin-bottom: 20px;
 }
 
-#gifPage p {
+#jpgPage p {
     font-size: 18px;
     max-width: 90%;
     line-height: 1.4;
@@ -114,13 +114,13 @@ for (let i = 0; i < 220; i++) {
 
         <button id="startBtn">Click me!</button>
 
-        <button id="gifBtn" style="display:none;">smtg..</button>
+        <button id="jpgBtn" style="display:none;">smtg..</button>
     </div>
 </div>
 
 <!-- GIF POPUP -->
 <div id="gifPage">
-    <img src="cute.gif" alt="Cute GIF">
+    <img src="cute.jpg" alt="Cute Jpg">
 
     <p>
         waise toh jyada kuch kar nahi payi par exams ke baad you'll definetly get something that will be better than this.
@@ -141,7 +141,7 @@ Happy birthday mummy once ahain! youre aging js like winee 💗`;
 let i = 0;
 const speed = 25;
 const msgBox = document.getElementById("message");
-const gifBtn = document.getElementById("gifBtn");
+const gifBtn = document.getElementById("jpgBtn");
 
 function typeWriter() {
     if (i < MSG.length) {
@@ -153,7 +153,7 @@ function typeWriter() {
 
         setTimeout(typeWriter, speed);
     } else {
-        gifBtn.style.display = "inline-block"; // show gif button
+        jpgBtn.style.display = "inline-block"; // show gif button
     }
 }
 
@@ -175,7 +175,7 @@ document.getElementById("startBtn").onclick = async () => {
 
 gifBtn.onclick = () => {
     document.getElementById("mainContent").style.display = "none";
-    document.getElementById("gifPage").style.display = "flex";
+    document.getElementById("jpgPage").style.display = "flex";
 };
 
 function goBack() {
@@ -192,7 +192,7 @@ function goBack() {
     document.getElementById("startBtn").disabled = false;
 
     // Hide the GIF button again
-    gifBtn.style.display = "none";
+    jpgBtn.style.display = "none";
 
     // Stop and reset music
     let audio = document.getElementById("bgMusic");
