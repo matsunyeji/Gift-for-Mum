@@ -10,7 +10,6 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: radial-gradient(circle at center, #0d0d2b, #000000 80%);
-    overflow-x: hidden;
     color: white;
 }
 
@@ -22,20 +21,18 @@ body {
     position: absolute;
     animation: twinkle 2s infinite alternate;
     border-radius: 50%;
-    opacity: 0.8;
 }
 
 @keyframes twinkle {
-    from { opacity: 0.3; transform: scale(1); }
-    to { opacity: 1; transform: scale(1.8); }
+    from { opacity: 0.3; }
+    to { opacity: 1; }
 }
 
 .card {
     width: 90%;
     max-width: 600px;
     margin: 100px auto;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(10px);
+    background: rgba(255,255,255,0.08);
     border-radius: 15px;
     padding: 25px;
     text-align: center;
@@ -44,58 +41,43 @@ body {
 #message {
     margin-top: 20px;
     white-space: pre-wrap;
-    line-height: 1.5;
     max-height: 300px;
     overflow-y: auto;
 }
 
 button {
     padding: 12px 20px;
-    font-size: 16px;
-    border: none;
     border-radius: 8px;
-    cursor: pointer;
-    margin-top: 20px;
-    background: #ffffff;
-    color: #000;
+    border: none;
     font-weight: bold;
+    margin-top: 20px;
+    cursor: pointer;
 }
 
-/* IMAGE PAGE */
+/* IMAGE PAGE — HIDDEN BY DEFAULT */
 #jpgPage {
     display: none;
     position: fixed;
     inset: 0;
     background: rgba(0,0,0,0.9);
-    backdrop-filter: blur(4px);
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    z-index: 999;
     text-align: center;
-    padding: 20px;
 }
 
 #jpgPage img {
     width: 300px;
     max-width: 90%;
-    margin-bottom: 20px;
     border-radius: 12px;
-}
-
-#jpgPage p {
-    font-size: 18px;
-    max-width: 90%;
-    line-height: 1.4;
 }
 </style>
 </head>
 
 <body>
 
-<!-- STARS -->
 <script>
-for (let i = 0; i < 220; i++) {
+for (let i = 0; i < 200; i++) {
     const s = document.createElement("div");
     s.className = "stars";
     s.style.top = Math.random() * 100 + "vh";
@@ -104,79 +86,47 @@ for (let i = 0; i < 220; i++) {
 }
 </script>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN PAGE -->
 <div id="mainContent">
     <div class="card">
         <h2>🎉 Happy Birthday Mumma 🎉</h2>
-
         <div id="message"></div>
-
-        <button id="startBtn">Click me 💗</button>
-        <br>
+        <button id="startBtn">Click me 💗</button><br>
         <button id="jpgBtn" style="display:none;">Something for you ✨</button>
     </div>
 </div>
 
 <!-- IMAGE PAGE -->
 <div id="jpgPage">
-    <img src="cute.jpg" alt="For Mum">
-
-    <p>
-        Waise toh zyada kuch kar nahi payi,
-        par exams ke baad pakka ek aur better surprise milega 💗
-    </p>
-
+    <img src="cute.jpg">
+    <p>Love you always mumma 💗</p>
     <button onclick="goBack()">Go Back</button>
 </div>
 
-<!-- MUSIC -->
-<audio id="bgMusic" src="music.mp3" preload="auto"></audio>
-
 <script>
-const MSG = `Thank you so much mumma for everything you've done for me, for us.
-Itna stress hone ke baad bhi you always keep us happy.
-
-Almost 4 years akele sab kuch handle kiya.
-Sorry for any trouble I caused unknowingly.
-
-Exams ki wajah se zyada kuch nahi kar payi,
-but I hope ye chotu sa gift aapko acha lage.
-
-Jaisi ho waisi hi rehna hamesha.
-Happy Birthday Mumma 💗
-Keep aging like wine `;
+const msg = `Thank you mumma for everything you do.
+You always put us first.
+Happy Birthday 💗`;
 
 let i = 0;
-const speed = 25;
-
-const msgBox = document.getElementById("message");
+const box = document.getElementById("message");
 const startBtn = document.getElementById("startBtn");
 const jpgBtn = document.getElementById("jpgBtn");
-const audio = document.getElementById("bgMusic");
 
-function typeWriter() {
-    if (i < MSG.length) {
-        msgBox.innerHTML += MSG.charAt(i);
-        i++;
-        msgBox.scrollTop = msgBox.scrollHeight;
-        setTimeout(typeWriter, speed);
+function typeText() {
+    if (i < msg.length) {
+        box.innerHTML += msg.charAt(i++);
+        setTimeout(typeText, 30);
     } else {
         jpgBtn.style.display = "inline-block";
     }
 }
 
-startBtn.onclick = async () => {
-    msgBox.innerHTML = "";
+startBtn.onclick = () => {
+    box.innerHTML = "";
     i = 0;
-
-    try {
-        await audio.play();
-        audio.volume = 0.8;
-        audio.loop = true;
-    } catch (e) {}
-
-    typeWriter();
     startBtn.disabled = true;
+    typeText();
 };
 
 jpgBtn.onclick = () => {
@@ -187,14 +137,10 @@ jpgBtn.onclick = () => {
 function goBack() {
     document.getElementById("jpgPage").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
-
-    msgBox.innerHTML = "";
+    box.innerHTML = "";
     i = 0;
     startBtn.disabled = false;
     jpgBtn.style.display = "none";
-
-    audio.pause();
-    audio.currentTime = 0;
 }
 </script>
 
