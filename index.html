@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: radial-gradient(circle at center, #0d0d2b, #000000 80%);
+    overflow-x: hidden;
+    color: white;
+}
+
+/* STARS */
+.stars {
+    width: 2px;
+    height: 2px;
+    background: white;
+    position: absolute;
+    animation: twinkle 2s infinite alternate;
+    border-radius: 50%;
+    opacity: 0.8;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.3; transform: scale(1); }
+    to { opacity: 1; transform: scale(1.8); }
+}
+
+.card {
+    width: 90%;
+    max-width: 600px;
+    margin: 100px auto;
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    text-align: center;
+}
+
+#message {
+    margin-top: 20px;
+    white-space: pre-wrap;
+    line-height: 1.5;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+button {
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 20px;
+    background: #ffffff;
+    color: #000;
+    font-weight: bold;
+}
+
+/* GIF POPUP */
+#gifPage {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.9);
+    backdrop-filter: blur(4px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    text-align: center;
+    padding: 20px;
+}
+
+#gifPage img {
+    width: 300px;
+    max-width: 90%;
+    margin-bottom: 20px;
+}
+
+#gifPage p {
+    font-size: 18px;
+    max-width: 90%;
+    line-height: 1.4;
+}
+</style>
+</head>
+<body>
+
+<!-- MAKE STARS -->
+<script>
+for (let i = 0; i < 220; i++) {
+    let s = document.createElement("div");
+    s.className = "stars";
+    s.style.top = Math.random() * 100 + "vh";
+    s.style.left = Math.random() * 100 + "vw";
+    document.body.appendChild(s);
+}
+</script>
+
+<!-- MAIN CONTENT -->
+<div id="mainContent">
+    <div class="card">
+        <h2>🎉 Happy Birthday Nomm! 🎉</h2>
+
+        <div id="message"></div>
+
+        <button id="startBtn">Click me!</button>
+
+        <button id="gifBtn" style="display:none;">smtg..</button>
+    </div>
+</div>
+
+<!-- GIF POPUP -->
+<div id="gifPage">
+    <img src="cute.gif" alt="Cute GIF">
+
+    <p>
+        waise toh jyada kuch kar nahi payi par exams ke baad you'll definetly get something that will be better than this.
+    </p>
+
+    <button onclick="goBack()">Go Back</button>
+</div>
+
+<!-- MUSIC -->
+<audio id="bgMusic" src="music.mp3" preload="auto"></audio>
+
+<script>
+const MSG = `Thank you so much mumma for everything you've done for me , for us! Itna stress wagerah hone ke baad bhi you keep us happy..
+For like almost 4 years you alone handled us and other work very smoothly. Sorry for wtv tromuble ive ccaused unknowingly. bas iss baar exams ke wajah se jyada kuch kar nahi payi par i hope ki aapko ye chotu sa gift awchw lage..
+baaki abhi jaisi hai waisi hi reh hamesha aur life enjoy karte rehh.
+Happy birthday mummy once ahain! youre aging js like winee 💗`;
+
+let i = 0;
+const speed = 25;
+const msgBox = document.getElementById("message");
+const gifBtn = document.getElementById("gifBtn");
+
+function typeWriter() {
+    if (i < MSG.length) {
+        msgBox.innerHTML += MSG.charAt(i);
+        i++;
+
+        // AUTO SCROLL
+        msgBox.scrollTop = msgBox.scrollHeight;
+
+        setTimeout(typeWriter, speed);
+    } else {
+        gifBtn.style.display = "inline-block"; // show gif button
+    }
+}
+
+document.getElementById("startBtn").onclick = async () => {
+    msgBox.innerHTML = "";
+    i = 0;
+
+    // MUSIC
+    try {
+        let audio = document.getElementById("bgMusic");
+        await audio.play();
+        audio.volume = 0.8;
+        audio.loop = true;
+    } catch(e) {}
+
+    typeWriter();
+    document.getElementById("startBtn").disabled = true;
+};
+
+gifBtn.onclick = () => {
+    document.getElementById("mainContent").style.display = "none";
+    document.getElementById("gifPage").style.display = "flex";
+};
+
+function goBack() {
+    // Hide GIF page
+    document.getElementById("gifPage").style.display = "none";
+    // Show main content again
+    document.getElementById("mainContent").style.display = "block";
+
+    // Reset message so typewriter can replay
+    msgBox.innerHTML = "";
+    i = 0;
+
+    // Re-enable the start button
+    document.getElementById("startBtn").disabled = false;
+
+    // Hide the GIF button again
+    gifBtn.style.display = "none";
+
+    // Stop and reset music
+    let audio = document.getElementById("bgMusic");
+    audio.pause();
+    audio.currentTime = 0;
+}
+</script>
+
+</body>
+</html>
