@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gift</title>
+<title>Gift for Mum</title>
 
 <style>
 body {
@@ -61,14 +61,11 @@ button {
     font-weight: bold;
 }
 
-/* GIF POPUP */
+/* IMAGE PAGE */
 #jpgPage {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
+    inset: 0;
     background: rgba(0,0,0,0.9);
     backdrop-filter: blur(4px);
     flex-direction: column;
@@ -83,6 +80,7 @@ button {
     width: 300px;
     max-width: 90%;
     margin-bottom: 20px;
+    border-radius: 12px;
 }
 
 #jpgPage p {
@@ -92,12 +90,13 @@ button {
 }
 </style>
 </head>
+
 <body>
 
-<!-- MAKE STARS -->
+<!-- STARS -->
 <script>
 for (let i = 0; i < 220; i++) {
-    let s = document.createElement("div");
+    const s = document.createElement("div");
     s.className = "stars";
     s.style.top = Math.random() * 100 + "vh";
     s.style.left = Math.random() * 100 + "vw";
@@ -108,22 +107,23 @@ for (let i = 0; i < 220; i++) {
 <!-- MAIN CONTENT -->
 <div id="mainContent">
     <div class="card">
-        <h2>🎉 Happy Birthday Nomm! 🎉</h2>
+        <h2>🎉 Happy Birthday Mumma 🎉</h2>
 
         <div id="message"></div>
 
-        <button id="startBtn">Click me!</button>
-
-        <button id="jpgBtn" style="display:none;">smtg..</button>
+        <button id="startBtn">Click me 💗</button>
+        <br>
+        <button id="jpgBtn" style="display:none;">Something for you ✨</button>
     </div>
 </div>
 
-<!-- GIF POPUP -->
-<div id="gifPage">
-    <img src="cute.jpg" alt="Cute Jpg">
+<!-- IMAGE PAGE -->
+<div id="jpgPage">
+    <img src="cute.jpg" alt="For Mum">
 
     <p>
-        waise toh jyada kuch kar nahi payi par exams ke baad you'll definetly get something that will be better than this.
+        Waise toh zyada kuch kar nahi payi,
+        par exams ke baad pakka ek aur better surprise milega 💗
     </p>
 
     <button onclick="goBack()">Go Back</button>
@@ -133,69 +133,66 @@ for (let i = 0; i < 220; i++) {
 <audio id="bgMusic" src="music.mp3" preload="auto"></audio>
 
 <script>
-const MSG = `Thank you so much mumma for everything you've done for me , for us! Itna stress wagerah hone ke baad bhi you keep us happy..
-For like almost 4 years you alone handled us and other work very smoothly. Sorry for wtv tromuble ive ccaused unknowingly. bas iss baar exams ke wajah se jyada kuch kar nahi payi par i hope ki aapko ye chotu sa gift awchw lage..
-baaki abhi jaisi hai waisi hi reh hamesha aur life enjoy karte rehh.
-Happy birthday mummy once ahain! youre aging js like winee 💗`;
+const MSG = `Thank you so much mumma for everything you've done for me, for us.
+Itna stress hone ke baad bhi you always keep us happy.
+
+Almost 4 years akele sab kuch handle kiya.
+Sorry for any trouble I caused unknowingly.
+
+Exams ki wajah se zyada kuch nahi kar payi,
+but I hope ye chotu sa gift aapko acha lage.
+
+Jaisi ho waisi hi rehna hamesha.
+Happy Birthday Mumma 💗
+Keep aging like wine `;
 
 let i = 0;
 const speed = 25;
+
 const msgBox = document.getElementById("message");
-const gifBtn = document.getElementById("jpgBtn");
+const startBtn = document.getElementById("startBtn");
+const jpgBtn = document.getElementById("jpgBtn");
+const audio = document.getElementById("bgMusic");
 
 function typeWriter() {
     if (i < MSG.length) {
         msgBox.innerHTML += MSG.charAt(i);
         i++;
-
-        // AUTO SCROLL
         msgBox.scrollTop = msgBox.scrollHeight;
-
         setTimeout(typeWriter, speed);
     } else {
-        jpgBtn.style.display = "inline-block"; // show gif button
+        jpgBtn.style.display = "inline-block";
     }
 }
 
-document.getElementById("startBtn").onclick = async () => {
+startBtn.onclick = async () => {
     msgBox.innerHTML = "";
     i = 0;
 
-    // MUSIC
     try {
-        let audio = document.getElementById("bgMusic");
         await audio.play();
         audio.volume = 0.8;
         audio.loop = true;
-    } catch(e) {}
+    } catch (e) {}
 
     typeWriter();
-    document.getElementById("startBtn").disabled = true;
+    startBtn.disabled = true;
 };
 
-gifBtn.onclick = () => {
+jpgBtn.onclick = () => {
     document.getElementById("mainContent").style.display = "none";
     document.getElementById("jpgPage").style.display = "flex";
 };
 
 function goBack() {
-    // Hide GIF page
-    document.getElementById("gifPage").style.display = "none";
-    // Show main content again
+    document.getElementById("jpgPage").style.display = "none";
     document.getElementById("mainContent").style.display = "block";
 
-    // Reset message so typewriter can replay
     msgBox.innerHTML = "";
     i = 0;
-
-    // Re-enable the start button
-    document.getElementById("startBtn").disabled = false;
-
-    // Hide the GIF button again
+    startBtn.disabled = false;
     jpgBtn.style.display = "none";
 
-    // Stop and reset music
-    let audio = document.getElementById("bgMusic");
     audio.pause();
     audio.currentTime = 0;
 }
